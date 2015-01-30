@@ -1,0 +1,16 @@
+<collection>
+
+    <backup>
+        <path>D:/goldensection.gso</path>
+        <dest_path>E:/test/python/backup_dir</dest_path>
+        <description>golden 메모</description>
+    </backup>
+
+    <backup>
+        <path>E:/test/python/src_dir</path>
+        <dest_path>E:/test/python/backup_dir</dest_path>
+        <description>디렉토리 백업 test</description>
+    </backup>
+
+
+</collection>
