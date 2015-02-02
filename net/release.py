@@ -57,7 +57,7 @@ def start_tomcat():
 # ===========================================
 def stop_tomcat():
 	try:
-		retcode = subprocess.call("ps -ef | grep %s/%s | grep -v grep | awk '{ print$2}' | xargs kill" % (gportal_path, project_name), shell=True)
+		retcode = subprocess.call("ps -ef | grep %s/%s/ | grep -v grep | awk '{ print$2}' | xargs kill" % (gportal_path, project_name), shell=True)
 		if retcode < 0:
 			print "Unable stop the tomcat service ==> ", retcode
 		elif retcode == 0:
@@ -128,8 +128,8 @@ def release():
 	if mode == "release":
 		restart_tomcat()
 
-	# 3초 sleep
-	time.sleep(3)
+	# thread sleep
+	time.sleep(10)
 
 
 # ===========================================
