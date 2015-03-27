@@ -108,9 +108,10 @@ def extract_tar():
 def release():
 
 	# 디렉토리 삭제, 생성
-	if os.path.exists(webappspath):
-		shutil.rmtree(webappspath)
-	os.makedirs(webappspath)
+	if mode == "release":
+		if os.path.exists(webappspath):
+			shutil.rmtree(webappspath)
+		os.makedirs(webappspath)
 
 	# 디렉토리 이동
 	print os.getcwd()
