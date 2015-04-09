@@ -1,0 +1,12 @@
+
+## 문자열 자르기
+.split("\n")
+
+## 문자열 검색
+if server_info.find(separator) > -1:
+
+## indexOf 와 같은 기능
+.index(",") > -1:
+
+## for문 idx 사용하기
+for idx, separator in enumerate(separator_list):
