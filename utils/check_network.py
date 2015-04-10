@@ -11,8 +11,8 @@ print("and then if you finish writing server list you have to press CTRL+D !!")
 print("===============================================================================")
 data = sys.stdin.read()
 
-# 서버 포트 구분자
-separator_list = [' ', ':']
+# 서버 포트 구분자 (tuple)
+separator_list = (' ', ':')
 
 # 서버 정보 파싱
 server_info_list = data.split("\n")
