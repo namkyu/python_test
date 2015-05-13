@@ -8,4 +8,5 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^hello/', "views.hello"),
+    url(r'^time/\d+/$', "views.current_datetime"),
 ]

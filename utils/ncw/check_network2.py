@@ -4,19 +4,15 @@
 import socket
 import sys, os
 
-# check할 대상 서버 리스트 입력 받기
-print("===============================================================================")
-print("please write server list")
-print("and then if you finish writing server list you have to press CTRL+D !!")
-print("===============================================================================")
-data = sys.stdin.read()
+# 파일 오픈
+print os.getcwd()
+data = open("ACL_CHECK_SERVER_LIST.txt", "r")
 
 # 서버 포트 구분자 (tuple)
 separator_list = (' ', ':')
 
 # 서버 정보 파싱
-server_info_list = data.split("\n")
-for server_info in server_info_list:
+for server_info in data:
     if len(server_info) > 0:
         # 서버 포트 구분자 확인 후 파싱
         for separator in separator_list:
@@ -43,4 +39,5 @@ for server_info in server_info_list:
         finally:
             s.close()
 
+data.close()
 print("Done!!")
