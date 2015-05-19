@@ -276,7 +276,6 @@ for country_row in country_row_arr:
 		json_data_de = json_data_de.replace("[\"" + result_arr[1].strip(), "[\"" + result_arr[0].strip())
 		json_data_es = json_data_es.replace("[\"" + result_arr[1].strip(), "[\"" + result_arr[0].strip())
 
-
 print("countryList[\"en\"] =" + json_data_en + ";")
 print("countryList[\"en-gb\"] =" + json_data_en_gb + ";")
 print("countryList[\"fr\"] =" + json_data_fr + ";")
