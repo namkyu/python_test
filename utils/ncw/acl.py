@@ -4,7 +4,7 @@
 import subprocess
 
 # copy 파일
-copy_file_name = ["ACL_CHECK_SERVER_LIST.txt", "check_network2.py"]
+copy_file_name = ["ACL_CHECK_SERVER_LIST.txt", "check_network.py"]
 
 # 호스트 서버 정보 추출
 server_list_info = open("HOST_SERVER_LIST.txt")
