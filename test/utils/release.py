@@ -1,23 +1,23 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import sys
 import os
-import time
-import subprocess
-import tarfile
 import shutil
+import subprocess
+import sys
+import tarfile
+import time
 
 
 def release_help():
 	print("===============================================================")
-	print("íŒŒë¼ë¯¸í„° ì…‹íŒ… ì •ë³´")
+	print("?ŒŒ?¼ë¯¸í„° ?…‹?Œ… ? •ë³?")
 	print("===============================================================")
-	print("profile_active : í™˜ê²½ ì •ë³´ ì…‹íŒ… (op, rc, stage, live)")
-	print("project_name : í”„ë¡œì íŠ¸ ì´ë¦„")
-	print("gportal_path : GPortal ë””ë ‰í† ë¦¬ íŒ¨ìŠ¤")
-	print("war_home : ë°°í¬í•  warê°€ ì¡´ì¬í•˜ëŠ” ë””ë ‰í† ë¦¬")
-	print("tar_path : warë¥¼ ì••ì¶•í•œ ìƒíƒœì˜ tar.gz ê²½ë¡œ")
+	print("profile_active : ?™˜ê²? ? •ë³? ?…‹?Œ… (op, rc, stage, live)")
+	print("project_name : ?”„ë¡œì ?Š¸ ?´ë¦?")
+	print("gportal_path : GPortal ?””? ‰?† ë¦? ?Œ¨?Š¤")
+	print("war_home : ë°°í¬?•  warê°? ì¡´ì¬?•˜?Š” ?””? ‰?† ë¦?")
+	print("tar_path : warë¥? ?••ì¶•í•œ ?ƒ?ƒœ?˜ tar.gz ê²½ë¡œ")
 	print("mode : ë°°í¬ ë°©ë²•")
 	sys.exit()  # ê°•ì œ ì¢…ë£Œ
 
@@ -37,7 +37,7 @@ def get_param_data(parameter_str):
 
 
 # ===========================================
-# í†°ì¼“ ì‹œì‘
+# ?†°ì¼? ?‹œ?‘
 # ===========================================
 def start_tomcat():
 	try:
@@ -53,7 +53,7 @@ def start_tomcat():
 
 
 # ===========================================
-# í†°ì¼“ ì¤‘ì§€
+# ?†°ì¼? ì¤‘ì?
 # ===========================================
 def stop_tomcat():
 	try:
@@ -69,7 +69,7 @@ def stop_tomcat():
 
 
 # ===========================================
-# í†°ì¼“ ì¬ì‹œì‘
+# ?†°ì¼? ?¬?‹œ?‘
 # ===========================================
 def restart_tomcat():
 	try:
@@ -90,7 +90,7 @@ def execute_java(war_home_dir, project_folder_name):
 
 
 # ===========================================
-# tar ì••ì¶• í•´ì œ
+# tar ?••ì¶? ?•´? œ
 # ===========================================
 def extract_tar():
 	try:
@@ -107,17 +107,17 @@ def extract_tar():
 # ===========================================
 def release():
 
-	# ë””ë ‰í† ë¦¬ ì‚­ì œ, ìƒì„±
+	# ?””? ‰?† ë¦? ?‚­? œ, ?ƒ?„±
 	if mode == "release":
 		if os.path.exists(webappspath):
 			shutil.rmtree(webappspath)
 		os.makedirs(webappspath)
 
-	# ë””ë ‰í† ë¦¬ ì´ë™
+	# ?””? ‰?† ë¦? ?´?™
 	print os.getcwd()
 	os.chdir(webappspath)
 
-	# ë§ ë³„ war ì••ì¶• í’€ê¸°
+	# ë§? ë³? war ?••ì¶? ??ê¸?
 	if profile_active == "op":
 		op_war_path = war_home % project_name
 		execute_java(op_war_path, project_name)
@@ -125,7 +125,7 @@ def release():
 		extract_tar()
 		execute_java(war_home, project_name)
 
-	# í†°ì¼“ ì¬ì‹œì‘
+	# ?†°ì¼? ?¬?‹œ?‘
 	if mode == "release":
 		restart_tomcat()
 
@@ -138,24 +138,24 @@ def release():
 # ===========================================
 if __name__ == "__main__":
 
-	# íŒŒë¼ë¯¸í„° ì²´í¬
+	# ?ŒŒ?¼ë¯¸í„° ì²´í¬
 	argument_len = len(sys.argv)
 	if argument_len < 2:
 		release_help()
 
-	# íŒŒë¼ë¯¸í„° ì¶”ì¶œ
+	# ?ŒŒ?¼ë¯¸í„° ì¶”ì¶œ
 	param_map = get_param_data(sys.argv[1])
 	profile_active = param_map.get("profile_active")
 	gportal_path = param_map.get("gportal_path")
 	java_home = param_map.get("java_home")
 	war_home = param_map.get("war_home")
-	tar_path = param_map.get("tar_path")    # opë§ì„ ì œì™¸í•œ ë§ì—ì„œë§Œ ì‚¬ìš©
+	tar_path = param_map.get("tar_path")    # opë§ì„ ? œ?™¸?•œ ë§ì—?„œë§? ?‚¬?š©
 	mode = param_map.get("mode")
 
 	project_names = param_map.get("project_name").split(",")
 	for project_name in project_names:
 
-		# webappspath ë””ë ‰í† ë¦¬
+		# webappspath ?””? ‰?† ë¦?
 		if profile_active == "op":
 			webappspath = gportal_path + "/" + project_name + "/webapps/ROOT"
 		elif profile_active is not "op":

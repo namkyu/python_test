@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import shutil
 from xml.dom.minidom import parse
 import xml.dom.minidom
-import shutil
 import zipfile, os, glob
 
+
 ################################
-# function zip ìƒì„±
+# function zip ?ƒ?„±
 ################################
 def make_zip(dest_path, backup_file_path):
 	zip_file_name = dest_path + "/" + os.path.basename(backup_file_path)
@@ -15,13 +16,13 @@ def make_zip(dest_path, backup_file_path):
 
 	mode = zipfile.ZIP_DEFLATED
 
-	## ë””ë ‰í† ë¦¬ì¸ ê²½ìš°
+	## ?””? ‰?† ë¦¬ì¸ ê²½ìš°
 	if os.path.isdir(backup_file_path):
 		for path, dir, files in os.walk(backup_file_path):
 			for file in files:
 				zip_file.write(os.path.join(path, file), os.path.join(path, file), mode)
 
-	## íŒŒì¼ì¸ ê²½ìš°
+	## ?ŒŒ?¼?¸ ê²½ìš°
 	elif os.path.exists(backup_file_path):
 		for name in glob.glob(backup_file_path):
 			zip_file.write(name, os.path.basename(name), mode)
@@ -50,7 +51,7 @@ def execute_backup():
 		print("description : %s" % description)
 		print("\n")
 
-		## zip ìƒì„±
+		## zip ?ƒ?„±
 		make_zip(dest_path, backup_file_path)
 
 # ===========================================

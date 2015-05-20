@@ -3,7 +3,7 @@
 class Athlete:
 
 	def __init__(self, a_name="", a_times=[]):
-		## ì—¬ê¸°ì„œ ë©¤ë²„ ë³€ìˆ˜ë¥¼ ì„ ì–¸í•´ ì£¼ëŠ” ê²ƒìž„
+		## ?—¬ê¸°ì„œ ë©¤ë²„ ë³??ˆ˜ë¥? ?„ ?–¸?•´ ì£¼ëŠ” ê²ƒìž„
 		self.name = a_name
 		self.times = a_times
 

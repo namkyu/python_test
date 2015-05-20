@@ -2,7 +2,7 @@
 
 class Parent:
 	parentAttr = 100
-	__private_parent_attr = 200 # private 멤버 변수
+	__private_parent_attr = 200 # private 멤버 �??��
 
 	def __init__(self):
 		print("Calling parent constructor")

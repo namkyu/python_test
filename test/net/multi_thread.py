@@ -1,8 +1,9 @@
 
 
 import thread
-import time
 import threading
+import time
+
 
 def print_time(threadName, delay):
 	threadLock.acquire()

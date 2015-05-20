@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import subprocess
+import sys
 
 
 def release_help():
 	print("===============================================================")
-	print("íŒŒë¼ë¯¸í„° ì…‹íŒ… ì •ë³´")
+	print("?ŒŒ?¼ë¯¸í„° ?…‹?Œ… ? •ë³?")
 	print("===============================================================")
-	print("1 ë²ˆì§¸ íŒŒë¼ë¯¸í„° : í”„ë¡œì íŠ¸ ì´ë¦„")
-	print("2 ë²ˆì§¸ íŒŒë¼ë¯¸í„° : íŒŒì¼ëª…")
-	print("3 ë²ˆì§¸ íŒŒë¼ë¯¸í„° : ì„œë²„ë¦¬ìŠ¤íŠ¸file")
+	print("1 ë²ˆì§¸ ?ŒŒ?¼ë¯¸í„° : ?”„ë¡œì ?Š¸ ?´ë¦?")
+	print("2 ë²ˆì§¸ ?ŒŒ?¼ë¯¸í„° : ?ŒŒ?¼ëª?")
+	print("3 ë²ˆì§¸ ?ŒŒ?¼ë¯¸í„° : ?„œë²„ë¦¬?Š¤?Š¸file")
 	sys.exit()  # ê°•ì œ ì¢…ë£Œ
 
 # ===========================================
@@ -20,7 +20,7 @@ def release_help():
 # ===========================================
 if __name__ == "__main__":
 
-	# íŒŒë¼ë¯¸í„° ì²´í¬
+	# ?ŒŒ?¼ë¯¸í„° ì²´í¬
 	argument_len = len(sys.argv)
 	if argument_len != 4:
 		release_help()
@@ -36,43 +36,43 @@ if __name__ == "__main__":
 	print("\n")
 
 	print("========================================================================")
-	print("ë°°í¬ ëŒ€ìƒ íŒŒì¼")
+	print("ë°°í¬ ???ƒ ?ŒŒ?¼")
 	print("========================================================================")
 	for root, dirs, files in os.walk("/home/fxdev/GPORTAL/%s/tomcat/webapps/ROOT" % project, topdown=False):
 		for name in files:
-			# ê²€ìƒ‰í•˜ë ¤ê³  í•˜ëŠ” fileì˜ full path ì¶”ì¶œ
+			# ê²??ƒ‰?•˜? ¤ê³? ?•˜?Š” file?˜ full path ì¶”ì¶œ
 			if name == file_name:
 				search_file_full_path = os.path.join(root, name)
 				release_files.append(search_file_full_path)
-				print("ë°°í¬ ëŒ€ìƒ íŒŒì¼ ==> " + search_file_full_path)
+				print("ë°°í¬ ???ƒ ?ŒŒ?¼ ==> " + search_file_full_path)
 	print("\n")
 
 	release_files_size = len(release_files)
 	release_file_name = ""
 
-	# ë°°í¬ íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ ê°•ì œ ì¢…ë£Œ
+	# ë°°í¬ ?ŒŒ?¼?´ ì¡´ì¬?•˜ì§? ?•Š?œ¼ë©? ê°•ì œ ì¢…ë£Œ
 	if release_files_size == 0:
 		print("========================================================================")
-		print("ë°°í¬í•  íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ")
+		print("ë°°í¬?•  ?ŒŒ?¼?´ ì¡´ì¬?•˜ì§? ?•Š?Šµ?‹ˆ?‹¤. ")
 		print("========================================================================")
 		print("(project=%s, file_name=%s)" % (project, file_name))
 		sys.exit()
-	# ë°°í¬í•  íŒŒì¼ì´ 1ê±´
+	# ë°°í¬?•  ?ŒŒ?¼?´ 1ê±?
 	elif release_files_size == 1:
 		release_file_name = release_files[0]
-	# ë°°í¬í•  íŒŒì¼ì´ 1ê±´ ì´ìƒì´ë©´ ì‚¬ìš©ìê°€ ì„ íƒ ê°€ëŠ¥í•˜ê²Œ ì„¤ì •
+	# ë°°í¬?•  ?ŒŒ?¼?´ 1ê±? ?´?ƒ?´ë©? ?‚¬?š©?ê°? ?„ ?ƒ ê°??Š¥?•˜ê²? ?„¤? •
 	elif release_files_size > 1:
 		for idx, file_name in enumerate(release_files):
 			print(idx, file_name)
 		print("========================================================================")
-		selected_file_num = raw_input("ì¤‘ë³µ íŒŒì¼ì´ ì¡´ì¬í•©ë‹ˆë‹¤. ë°°í¬í•  íŒŒì¼ì„ ì„ íƒí•´ ì£¼ì„¸ìš”. (ë²ˆí˜¸ ì…ë ¥) ==> ")
+		selected_file_num = raw_input("ì¤‘ë³µ ?ŒŒ?¼?´ ì¡´ì¬?•©?‹ˆ?‹¤. ë°°í¬?•  ?ŒŒ?¼?„ ?„ ?ƒ?•´ ì£¼ì„¸?š”. (ë²ˆí˜¸ ?…? ¥) ==> ")
 		print("========================================================================")
 		release_file_name = release_files[int(selected_file_num)]
 
-	# ì„œë²„ ë¦¬ìŠ¤íŠ¸ ì •ë³´ ì¶”ì¶œ
+	# ?„œë²? ë¦¬ìŠ¤?Š¸ ? •ë³? ì¶”ì¶œ
 	server_list_info = open("/home/fxdev/shell/serverlist/%s" % server_list_file)
 	for server_host in server_list_info:
-		# scpë¥¼ ì´ìš©í•œ íŒŒì¼ cp
+		# scpë¥? ?´?š©?•œ ?ŒŒ?¼ cp
 		cmd = "scp %s %s:%s" % (release_file_name, server_host.strip(), release_file_name)
 		print(cmd)
 		subprocess.call(cmd, shell=True)

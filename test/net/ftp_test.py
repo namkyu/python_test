@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import os
 import ftplib
+import os
 import sys
 
-# ë””ë ‰í† ë¦¬ ì´ë™
+
+# ?””? ‰?† ë¦? ?´?™
 print os.getcwd()
 os.chdir("E:/test/python")
 
@@ -30,23 +31,23 @@ def upload(ftp, file):
     else:
 		ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
 
-# FTP ë¡œê·¸ì¸
+# FTP ë¡œê·¸?¸
 ftp = ftplib.FTP("lnk1982.cafe24.com")
 ftp.login("nklee", "rbdn2001")
 
-# FTP ì„œë²„ íŠ¹ì • íŒŒì¼ ë‚´ìš© ì¶œë ¥
+# FTP ?„œë²? ?Š¹? • ?ŒŒ?¼ ?‚´?š© ì¶œë ¥
 gettext(ftp, "test/python/ftp_test.txt")
 
-# FTP ì„œë²„ ë””ë ‰í† ë¦¬ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
+# FTP ?„œë²? ?””? ‰?† ë¦? ë¦¬ìŠ¤?Š¸ ì¶œë ¥
 data = []
 ftp.dir(data.append)
 for line in data:
     print "-", line
 
-# FTP íŒŒì¼ ì—…ë¡œë“œ
+# FTP ?ŒŒ?¼ ?—…ë¡œë“œ
 #upload(ftp, "upload_test.txt")
 
 
 
-# ftp ë‚˜ê°€ê¸°
+# ftp ?‚˜ê°?ê¸?
 ftp.quit()

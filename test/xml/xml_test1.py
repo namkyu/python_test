@@ -3,6 +3,7 @@
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
+
 # Open XML document using minidom parser
 DOMTree = xml.dom.minidom.parse("movies.xml")
 collection = DOMTree.documentElement

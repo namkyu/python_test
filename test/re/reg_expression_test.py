@@ -2,6 +2,7 @@
 
 import re
 
+
 line = "Cats are smarter then dogs"
 matchObj = re.match(r'(.*) are (.*?) .*', line, re.M | re.I)
 
@@ -12,7 +13,7 @@ if matchObj:
 else:
 	print "No match!!"
 
-# Matching, Searching í…ŒìŠ¤íŠ¸
+# Matching, Searching ?…Œ?Š¤?Š¸
 print("\n\n")
 matchObj2 = re.match(r'dogs', line, re.M | re.I)
 if matchObj2:

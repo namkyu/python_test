@@ -1,5 +1,6 @@
 import os, zipfile
 
+
 Z = zipfile.ZipFile('E:/test/python/backup_dir/teste.zip', 'w')
 for path, directory, files in os.walk('E:/test/python/src_dir'):
 	for ff in files:
