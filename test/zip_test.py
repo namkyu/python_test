@@ -1,5 +1,6 @@
-import zipfile
 import glob, os
+import zipfile
+
 
 # file = zipfile.ZipFile("E:/test/python/zip_test/test.zip", "w")
 #
@@ -9,7 +10,6 @@ import glob, os
 # 	file.write(name, os.path.basename(name), zipfile.ZIP_DEFLATED)
 #
 # file.close()
-
 print "######## os.path.basename TEST"
 print os.path.basename("c:/test/test.txt")
 print os.path.basename("c:/test/")
