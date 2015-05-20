@@ -1,6 +1,9 @@
 eclipse.preferences.version=1
 encoding//test/classTest/Employee.py=utf-8
 encoding//test/classTest/class1.py=utf-8
+encoding//test/classTest/inherit_class_test.py=utf-8
 encoding//test/classTest/list_class.py=utf-8
+encoding//test/utils/check_network.py=utf-8
+encoding//test/utils/cmd.py=utf-8
 encoding//test/utils/release.py=utf-8
 encoding/<project>=UTF-8

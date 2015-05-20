@@ -4,22 +4,21 @@
 import socket
 import sys, os
 
-
-# check?•  ???ƒ ?„œë²? ë¦¬ìŠ¤?Š¸ ?ž…? ¥ ë°›ê¸°
+# checkí•  ëŒ€ìƒ ì„œë²„ ë¦¬ìŠ¤íŠ¸ ìž…ë ¥ ë°›ê¸°
 print("===============================================================================")
 print("please write server list")
 print("and then if you finish writing server list you have to press CTRL+D !!")
 print("===============================================================================")
 data = sys.stdin.read()
 
-# ?„œë²? ?¬?Š¸ êµ¬ë¶„?ž (tuple)
+# ì„œë²„ í¬íŠ¸ êµ¬ë¶„ìž (tuple)
 separator_list = (' ', ':')
 
-# ?„œë²? ? •ë³? ?ŒŒ?‹±
+# ì„œë²„ ì •ë³´ íŒŒì‹±
 server_info_list = data.split("\n")
 for server_info in server_info_list:
     if len(server_info) > 0:
-        # ?„œë²? ?¬?Š¸ êµ¬ë¶„?ž ?™•?¸ ?›„ ?ŒŒ?‹±
+        # ì„œë²„ í¬íŠ¸ êµ¬ë¶„ìž í™•ì¸ í›„ íŒŒì‹±
         for separator in separator_list:
             if server_info.find(separator) > -1:
                 server = server_info.split(separator)
@@ -29,14 +28,14 @@ for server_info in server_info_list:
         ip = int(server[1])
 
         try:
-            # ?†Œì¼? ?ƒ?„±
+            # ì†Œì¼“ ìƒì„±
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.settimeout(0.5)
 
-            # ?†Œì¼? ?—°ê²? ?™•?¸
+            # ì†Œì¼“ ì—°ê²° í™•ì¸
             s.connect((host, ip))
 
-            # ?„±ê³? ë¡œê·¸
+            # ì„±ê³µ ë¡œê·¸
             print "Checking Host : %s:%s ==> Connection Successed" % (host, ip)
 
         except Exception, e:

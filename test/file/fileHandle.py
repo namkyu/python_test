@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
 
 import os
-import os
-import pickle
-import sys
-
-
 print os.getcwd()
 os.chdir("E:/test/python")
 print os.getcwd()
 
-# ?¸ì½”ë”© ?™•?¸ ?•˜ê¸?
+# ì¸ì½”ë”© í™•ì¸ í•˜ê¸°
+import sys
 print sys.getdefaultencoding()
 
 
 print
 print
 print "========================================="
-print "?ŒŒ?¼ ?½ê¸? ?…Œ?Š¤?Š¸"
+print "íŒŒì¼ ì½ê¸° í…ŒìŠ¤íŠ¸"
 print "========================================="
 
-# ?ŒŒ?¼ ?˜¤?”ˆ ?›„ ?•œ ì¤? ?½ê¸?
+# íŒŒì¼ ì˜¤í”ˆ í›„ í•œ ì¤„ ì½ê¸°
 data = open("test1.txt")
 print data.readline()
 
-# ?ŒŒ?¼ ì²? ë²ˆì§¸ rowë¡? ?¬?¸?Š¸ ?´?™
+# íŒŒì¼ ì²« ë²ˆì§¸ rowë¡œ í¬ì¸íŠ¸ ì´ë™
 data.seek(0)
 for each_item in data:
 	print each_item,
@@ -33,9 +29,10 @@ data.close()
 print
 print
 print "========================================="
-print "split ?…Œ?Š¤?Š¸"
+print "split í…ŒìŠ¤íŠ¸"
 print "========================================="
 
+import os
 
 if os.path.exists("test3.txt"):
 	data3 = open("test3.txt")
@@ -53,7 +50,7 @@ else:
 print
 print
 print "========================================="
-print "exception ?…Œ?Š¤?Š¸"
+print "exception í…ŒìŠ¤íŠ¸"
 print "========================================="
 
 try:
@@ -76,7 +73,7 @@ except Exception:
 print
 print
 print "========================================="
-print "?ŒŒ?¼ ?“°ê¸? ?…Œ?Š¤?Š¸"
+print "íŒŒì¼ ì“°ê¸° í…ŒìŠ¤íŠ¸"
 print "========================================="
 
 man = []
@@ -107,7 +104,7 @@ finally:
 print(man)
 print(other)
 
-# print ?‚´?š©?„ ?ŒŒ?¼?— ?“°ê¸?, finally ?…Œ?Š¤?Š¸
+# print ë‚´ìš©ì„ íŒŒì¼ì— ì“°ê¸°, finally í…ŒìŠ¤íŠ¸
 try:
 	out = open("data_out.txt", "w")
 	print >> out, man
@@ -124,7 +121,7 @@ finally:
 print
 print
 print "========================================="
-print "file with as ?‚¬?š©?•˜ê¸?"
+print "file with as ì‚¬ìš©í•˜ê¸°"
 print "========================================="
 try:
 	with open("its.txt", "w") as data4:
@@ -137,12 +134,13 @@ except IOError as err:
 print
 print
 print "========================================="
-print "pickle ?…Œ?Š¤?Š¸"
+print "pickle í…ŒìŠ¤íŠ¸"
 print "========================================="
 
+import pickle
 
 try:
-	# wb ?˜ ?˜ë¯¸ëŠ” writeable, binary ?´?‹¤.
+	# wb ì˜ ì˜ë¯¸ëŠ” writeable, binary ì´ë‹¤.
 	with open("pickle_mydata.txt", "wb") as mysavedata:
 		pickle.dump([1, 2, 'three'], mysavedata)
 
@@ -159,10 +157,10 @@ except pickle.PickleError as perr:
 print
 print
 print "========================================="
-print "?…Œ?Š¤?Š¸"
+print "í…ŒìŠ¤íŠ¸"
 print "========================================="
 mins = [1, 2, 3]
-secs = [m * 60 for m in mins]  # for ë¬? ?—†?´ ?•œ ì¤? ì½”ë“œë¡œë„ ê°??Š¥
+secs = [m * 60 for m in mins]  # for ë¬¸ ì—†ì´ í•œ ì¤„ ì½”ë“œë¡œë„ ê°€ëŠ¥
 print(secs)
 print(secs[0:2])
 
@@ -170,7 +168,7 @@ print(secs[0:2])
 print
 print
 print "========================================="
-print "ì¤‘ë³µ ? œê±?"
+print "ì¤‘ë³µ ì œê±°"
 print "========================================="
 distances = set()
 distances = {1, 2, 3, 4, 5, 1, 3}
