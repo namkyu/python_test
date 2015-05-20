@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import os
 import shutil
+import tarfile
 
-# íŒŒë¼ë¯¸í„° íŒŒì‹±
+
+# ?ŒŒ?¼ë¯¸í„° ?ŒŒ?‹±
 parameter_map = {}
 parameter_str = "a=1 b=2 c=3"
 parameters = parameter_str.split(" ")
@@ -17,9 +20,7 @@ print(parameter_map)
 print(parameter_map.get('a'))
 
 
-# tar.gz ì••ì¶• í’€ê¸°
-import tarfile
-import os
+# tar.gz ?••ì¶? ??ê¸?
 print os.getcwd()
 os.chdir("E:/test/python/tar")
 
@@ -30,7 +31,7 @@ print("Done")
 
 
 
-# if í…ŒìŠ¤íŠ¸
+# if ?…Œ?Š¤?Š¸
 profile_active = "rc"
 if profile_active == "op":
 	print "op"
@@ -38,7 +39,7 @@ elif profile_active is not "op":
 	print "rc"
 
 
-# split í…ŒìŠ¤íŠ¸ (ìƒµ)
+# split ?…Œ?Š¤?Š¸ (?ƒµ)
 str = "1#2#3"
 print(str.split("#"))
 
@@ -47,5 +48,5 @@ shutil.rmtree("E:/test/python/src_dir2")
 shutil.copytree("E:/test/python/src_dir", "E:/test/python/src_dir2")
 
 
-# ë””ë ‰í† ë¦¬ íŒ¨ìŠ¤ êµ¬ë¶„ìëŠ” / ë¡œ ë“¤ì–´ê°€ì•¼ í•œë‹¤. \ ëŠ” ì•ˆ ë¨
+# ?””? ‰?† ë¦? ?Œ¨?Š¤ êµ¬ë¶„??Š” / ë¡? ?“¤?–´ê°??•¼ ?•œ?‹¤. \ ?Š” ?•ˆ ?¨
 shutil.copy2("D:/goldensection.gso", "E:/test/python/backup_dir")
