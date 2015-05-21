@@ -71,7 +71,7 @@ def start_tomcat(service_name):
 # ===========================================
 def stop_tomcat(service_name):
 	try:
-		retcode = subprocess.call("ps -ef | grep %s/%s/ | grep -v grep | awk '{ print$2}' | xargs kill" % (gportal_path, service_name), shell=True)
+		retcode = subprocess.call("ps -ef | grep %s/%s/ | grep -v grep | awk '{print$2}' | xargs kill" % (gportal_path, service_name), shell=True)
 		if retcode < 0:
 			print "Unable stop the tomcat service[%s]" % retcode
 		elif retcode == 0:
