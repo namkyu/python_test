@@ -8,12 +8,24 @@ import subprocess
 import tarfile
 import shutil
 
+# ===========================================
+# global variable
+# ===========================================
+profile_active = ""
+gportal_path = ""
+java_home = ""
+war_home = ""
+tar_path = ""
+mode = ""
 
+# ===========================================
+# help
+# ===========================================
 def release_help():
 	print("===============================================================")
 	print("파라미터 셋팅 정보")
 	print("===============================================================")
-	print("profile_active : 환경 정보 셋팅 (op, rc, stage, live)")
+	print("profile_active : 환경 정보 셋팅")
 	print("project_name : 프로젝트 이름")
 	print("gportal_path : GPortal 디렉토리 패스")
 	print("war_home : 배포할 war가 존재하는 디렉토리")
@@ -27,11 +39,13 @@ def release_help():
 def get_param_data(parameter_str):
 	parameter_map = {}
 	parameters = parameter_str.split("#")
-
+	
+	print("####################### Param Data ########################")	
 	for item in parameters:
 		print(item)
 		items = item.split("=")
 		parameter_map[items[0]] = items[1]
+	print("###########################################################")
 
 	return parameter_map
 
@@ -39,15 +53,15 @@ def get_param_data(parameter_str):
 # ===========================================
 # 톰켓 시작
 # ===========================================
-def start_tomcat():
+def start_tomcat(service_name):
 	try:
-		retcode = subprocess.call("BUILD_ID=dontKillMe %s/%s/tomcat/bin/startup.sh" % (gportal_path, project_name), shell=True)
+		retcode = subprocess.call("BUILD_ID=dontKillMe %s/%s/tomcat/bin/startup.sh" % (gportal_path, service_name), shell=True)
 		if retcode < 0:
-			print "Unable start the tomcat service ==> ", retcode
+			print "Unable start the tomcat service[%s]" % retcode
 		elif retcode == 0:
-			print "Tomcat service is started succesfully ==> ", retcode
+			print "Tomcat service is started succesfully[%s]" % retcode
 		else:
-			print "Tomcat Service started already ==> ", retcode
+			print "Tomcat Service started already[%s]" % retcode
 	except OSError, e:
 		print "Execution failed:", e
 
@@ -55,15 +69,15 @@ def start_tomcat():
 # ===========================================
 # 톰켓 중지
 # ===========================================
-def stop_tomcat():
+def stop_tomcat(service_name):
 	try:
-		retcode = subprocess.call("ps -ef | grep %s/%s/ | grep -v grep | awk '{ print$2}' | xargs kill" % (gportal_path, project_name), shell=True)
+		retcode = subprocess.call("ps -ef | grep %s/%s/ | grep -v grep | awk '{ print$2}' | xargs kill" % (gportal_path, service_name), shell=True)
 		if retcode < 0:
-			print "Unable stop the tomcat service ==> ", retcode
+			print "Unable stop the tomcat service[%s]" % retcode
 		elif retcode == 0:
-			print "Tomcat service is stopped succesfully ==> ", retcode
+			print "Tomcat service is stopped succesfully[%s]" % retcode
 		else:
-			print "Tomcat service stopped already ==> ", retcode
+			print "Tomcat service stopped already[%s]" % retcode
 	except OSError, e:
 		print "Execution failed:", e
 
@@ -71,10 +85,11 @@ def stop_tomcat():
 # ===========================================
 # 톰켓 재시작
 # ===========================================
-def restart_tomcat():
+def restart_tomcat(service_name):
 	try:
-		stop_tomcat()
-		start_tomcat()
+		stop_tomcat(service_name)
+		time.sleep(10)
+		start_tomcat(service_name)
 	except OSError, e:
 		print "Execution failed:", e
 
@@ -97,7 +112,6 @@ def extract_tar():
 		tar = tarfile.open(tar_path, "r:gz")
 		for item in tar:
 			tar.extract(item, war_home)
-		print("(Tar file extracted) tar_path=" + tar_path)
 	except OSError, e:
 		print "Execution failed:", e
 
@@ -105,7 +119,7 @@ def extract_tar():
 # ===========================================
 # 배포
 # ===========================================
-def release():
+def release(webappspath, project_name):
 
 	# 디렉토리 삭제, 생성
 	if mode == "release":
@@ -114,7 +128,6 @@ def release():
 		os.makedirs(webappspath)
 
 	# 디렉토리 이동
-	print os.getcwd()
 	os.chdir(webappspath)
 
 	# 망 별 war 압축 풀기
@@ -127,24 +140,25 @@ def release():
 
 	# 톰켓 재시작
 	if mode == "release":
-		restart_tomcat()
+		restart_tomcat(project_name)
 
 	# thread sleep
 	time.sleep(10)
 
-
 # ===========================================
-# execute
+# execute_main
 # ===========================================
-if __name__ == "__main__":
-
-	# 파라미터 체크
-	argument_len = len(sys.argv)
-	if argument_len < 2:
-		release_help()
-
+def execute_main(param):
+	# 전역 변수 선언
+	global profile_active
+	global gportal_path
+	global java_home
+	global war_home
+	global tar_path
+	global mode
+	
 	# 파라미터 추출
-	param_map = get_param_data(sys.argv[1])
+	param_map = get_param_data(param)
 	profile_active = param_map.get("profile_active")
 	gportal_path = param_map.get("gportal_path")
 	java_home = param_map.get("java_home")
@@ -162,7 +176,18 @@ if __name__ == "__main__":
 			webappspath = gportal_path + "/" + project_name + "/tomcat/webapps/ROOT"
 
 		# 배포
-		release()
+		release(webappspath, project_name)
 
+# ===========================================
+# execute_main
+# ===========================================
+if __name__ == "__main__":
 
+	# 파라미터 체크
+	argument_len = len(sys.argv)
+	if argument_len < 2:
+		release_help()
+
+	# execute_main main
+	execute_main(sys.argv[1])
 
