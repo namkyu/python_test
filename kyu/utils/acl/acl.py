@@ -4,7 +4,8 @@
 import subprocess
 
 # copy 파일
-copy_file_name = ["ACL_CHECK_SERVER_LIST.txt", "check_network.py"]
+check_network_file_name = "check_network.py"
+copy_file_name = ["ACL_CHECK_SERVER_LIST.txt", check_network_file_name]
 
 # 호스트 서버 정보 추출
 server_list_info = open("HOST_SERVER_LIST.txt")
@@ -30,7 +31,7 @@ print("===========================================")
 # 원격지 파이썬 script 실행
 server_list_info.seek(0)
 for server_host in server_list_info:
-	arg = "'cd %s; python check_network2.py'" % script_home_dir
+	arg = "'cd %s; python %s'" % (script_home_dir, check_network_file_name)
 	cmd = "ssh %s %s" % (server_host.strip(), arg)
 	subprocess.call(cmd, shell=True)
 print("===========================================")

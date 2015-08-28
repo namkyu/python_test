@@ -144,6 +144,46 @@ def release(webappspath, project_name):
 
 	# thread sleep
 	time.sleep(10)
+	
+# ===========================================
+# 핫디플로이
+# ===========================================
+def hot_deploy_releae(webappspath, project_name):
+	#webApps = gportal_path + "/" + project_name + "/tomcat/webapps"
+	webApps = webappspath[0:webappspath.rfind("/")]
+	print("webApps=" + webApps)
+	
+	# war 파일 리스트 추출 후 정렬
+	root_files = []
+	for root, dirs, files in os.walk(webApps, topdown=False):
+		root_files = files
+	root_files.sort()
+	print("root_files=" + root_files)
+	
+	# latest war 버전 추출
+	latest_war_file = max(root_files)
+	start_num = latest_war_file.rfind("#") + 1
+	end_num = latest_war_file.rfind(".")
+	version = latest_war_file[start_num:end_num]
+	
+	# 신규 버전 war 파일 이름 생성
+	new_version = version + 1
+	rename_war_file_name = "ROOT##%d.war" % new_version
+	print("rename_war_file_name=" + rename_war_file_name)
+	
+	# war 배포
+	source = war_home + "/" + project_name + ".war"
+	dest = webApps + "/" + rename_war_file_name
+	shutil.copy2(source, dest)
+	print("source=" + source + ", dest=" + dest)
+	
+	# 새로 배포된 application이 startup 되기를 기다린다.
+	time.sleep(20)
+	
+	# 기존배포되어 있던 war 파일을 삭제
+	for root_war_file in enumerate(root_files):
+		if root_war_file != rename_war_file_name:                
+			os.remove(webApps + root_war_file)
 
 # ===========================================
 # execute_main
@@ -156,11 +196,13 @@ def execute_main(param):
 	global war_home
 	global tar_path
 	global mode
+	global hot_deploy
 	
 	# 파라미터 추출
 	param_map = get_param_data(param)
 	profile_active = param_map.get("profile_active")
 	gportal_path = param_map.get("gportal_path")
+	hot_deploy = param_map.get("hot_deploy")
 	java_home = param_map.get("java_home")
 	war_home = param_map.get("war_home")
 	tar_path = param_map.get("tar_path")    # op망을 제외한 망에서만 사용
@@ -175,8 +217,11 @@ def execute_main(param):
 		elif profile_active is not "op":
 			webappspath = gportal_path + "/" + project_name + "/tomcat/webapps/ROOT"
 
-		# 배포
-		release(webappspath, project_name)
+		# 배포 (일반디플로이, 핫디플로이)
+		if hot_deploy == "Y":
+			hot_deploy_releae(webappspath, project_name)
+		else:
+			release(webappspath, project_name)
 
 # ===========================================
 # execute_main
