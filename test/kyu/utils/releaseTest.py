@@ -28,18 +28,24 @@ class ReleaseTest(unittest.TestCase):
         print(wab_app_path[0:wab_app_path.rfind("/")])
         print("wab_app_path=" + wab_app_path)
         
-        root_files.sort()
-        print(root_files)
-
-        latest_war_file = max(root_files)
-        start_num = latest_war_file.rfind("#") + 1
-        end_num = latest_war_file.rfind(".")
-        version = int(latest_war_file[start_num:end_num])
-        new_version = version + 1
-        print("## 기존 최신 버전")
-        print(version)
-        print("## 신규 버전")
-        print(new_version)
+        default_version = 1
+        if not root_files:
+            print "List is empty"
+            new_version = default_version  
+            print(new_version)          
+        else:        
+            root_files.sort()
+            print(root_files)
+    
+            latest_war_file = max(root_files)
+            start_num = latest_war_file.rfind("#") + 1
+            end_num = latest_war_file.rfind(".")
+            version = int(latest_war_file[start_num:end_num])
+            new_version = default_version + 1
+            print("## 기존 최신 버전")
+            print(version)
+            print("## 신규 버전")
+            print(new_version)
         
         original_war_name = "NShop-Front.war"
         rename_war_name = "ROOT##%d.war" % new_version

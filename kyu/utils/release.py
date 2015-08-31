@@ -148,9 +148,8 @@ def release(webappspath, project_name):
 # ===========================================
 # 핫디플로이
 # ===========================================
-def hot_deploy_releae(webappspath, project_name):
-	#webApps = gportal_path + "/" + project_name + "/tomcat/webapps"
-	webApps = webappspath[0:webappspath.rfind("/")]
+def hot_deploy_releae(project_name):
+	webApps = gportal_path + "/" + project_name + "/tomcat/webapps"
 	print("webApps=" + webApps)
 	
 	# war 파일 리스트 추출 후 정렬
@@ -158,16 +157,21 @@ def hot_deploy_releae(webappspath, project_name):
 	for root, dirs, files in os.walk(webApps, topdown=False):
 		root_files = files
 	root_files.sort()
-	print("root_files=" + root_files)
+	print(root_files)
 	
-	# latest war 버전 추출
-	latest_war_file = max(root_files)
-	start_num = latest_war_file.rfind("#") + 1
-	end_num = latest_war_file.rfind(".")
-	version = latest_war_file[start_num:end_num]
+	# 버전 가져오기
+	new_version = 0
+	default_version = 1
+	if not root_files:
+		new_version = default_version
+	else:		
+		latest_war_file = max(root_files) # latest war 버전 추출
+		start_num = latest_war_file.rfind("#") + 1
+		end_num = latest_war_file.rfind(".")
+		version = int(latest_war_file[start_num:end_num])		
+		new_version = version + default_version
 	
-	# 신규 버전 war 파일 이름 생성
-	new_version = version + 1
+	# 배포되는 war 파일 이름 생성
 	rename_war_file_name = "ROOT##%d.war" % new_version
 	print("rename_war_file_name=" + rename_war_file_name)
 	
@@ -178,12 +182,13 @@ def hot_deploy_releae(webappspath, project_name):
 	print("source=" + source + ", dest=" + dest)
 	
 	# 새로 배포된 application이 startup 되기를 기다린다.
-	time.sleep(20)
+	time.sleep(60)
 	
 	# 기존배포되어 있던 war 파일을 삭제
-	for root_war_file in enumerate(root_files):
-		if root_war_file != rename_war_file_name:                
-			os.remove(webApps + root_war_file)
+	for idx, root_war_file in enumerate(root_files):
+		if root_war_file != rename_war_file_name:
+			print(root_war_file)                
+			os.remove(webApps + "/" + root_war_file)
 
 # ===========================================
 # execute_main
@@ -219,7 +224,7 @@ def execute_main(param):
 
 		# 배포 (일반디플로이, 핫디플로이)
 		if hot_deploy == "Y":
-			hot_deploy_releae(webappspath, project_name)
+			hot_deploy_releae(project_name)
 		else:
 			release(webappspath, project_name)
 

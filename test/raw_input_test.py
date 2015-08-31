@@ -7,7 +7,7 @@ files = ["a.jsp", "b.jsp"]
 for idx, fileName in enumerate(files):
 	print(idx, fileName)
 
-selected = raw_input("ì¤‘ë³µ ?ŒŒ?¼?´ ì¡´ìž¬?•©?‹ˆ?‹¤. ë°°í¬?•  ?ŒŒ?¼?„ ?„ ?ƒ?•´ ì£¼ì„¸?š”. (ë²ˆí˜¸ ?ž…? ¥) ==> ")
+selected = raw_input("ì¤‘ë³µ íŒŒì¼ì´ ì¡´ìž¬í•©ë‹ˆë‹¤. ë°°í¬í•  íŒŒì¼ì„ ì„ íƒí•´ ì£¼ì„¸ìš”. (ë²ˆí˜¸ ìž…ë ¥) ==> ")
 print(selected)
 
 #print (files[int(selected)])

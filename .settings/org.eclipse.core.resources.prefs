@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//kyu/utils/acl/acl.py=utf-8
 encoding//kyu/utils/acl/check_network.py=utf-8
+encoding//kyu/utils/check_network.py=utf-8
+encoding//kyu/utils/cmd.py=utf-8
 encoding//kyu/utils/release.py=utf-8
 encoding//kyu/utils/release_only_one.py=utf-8
 encoding//test/classTest/Employee.py=utf-8
@@ -9,4 +11,8 @@ encoding//test/classTest/inherit_class_test.py=utf-8
 encoding//test/classTest/list_class.py=utf-8
 encoding//test/kyu/utils/releaseTest.py=utf-8
 encoding//test/net/ftp_test.py=utf-8
+encoding//test/raw_input_test.py=utf-8
+encoding//test/re/reg_expression_test.py=utf-8
+encoding//test/test.py=utf-8
+encoding//test/xml/backup.py=utf-8
 encoding/<project>=UTF-8
