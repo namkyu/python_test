@@ -123,12 +123,11 @@ def release(webappspath, project_name):
 
 	# 디렉토리 삭제, 생성
 	if mode == "release":
-		if os.path.exists(webappspath):
-			shutil.rmtree(webappspath)
-		os.makedirs(webappspath)
+		shutil.rmtree(webappspath)
+		os.makedirs(webappspath + "/ROOT")
 
 	# 디렉토리 이동
-	os.chdir(webappspath)
+	os.chdir(webappspath + "/ROOT")
 
 	# 망 별 war 압축 풀기
 	if profile_active == "op":
@@ -148,13 +147,16 @@ def release(webappspath, project_name):
 # ===========================================
 # 핫디플로이
 # ===========================================
-def hot_deploy_releae(project_name):
-	webApps = gportal_path + "/" + project_name + "/tomcat/webapps"
-	print("webApps=" + webApps)
+def hot_deploy_releae(webappspath, project_name):
+	print("webappspath=" + webappspath)
+	
+	# tar 압축 풀기
+	if profile_active is not "op":
+		extract_tar()
 	
 	# war 파일 리스트 추출 후 정렬
 	root_files = []
-	for root, dirs, files in os.walk(webApps, topdown=False):
+	for root, dirs, files in os.walk(webappspath, topdown=False):
 		root_files = files
 	root_files.sort()
 	print(root_files)
@@ -177,7 +179,7 @@ def hot_deploy_releae(project_name):
 	
 	# war 배포
 	source = war_home + "/" + project_name + ".war"
-	dest = webApps + "/" + rename_war_file_name
+	dest = webappspath + "/" + rename_war_file_name
 	shutil.copy2(source, dest)
 	print("source=" + source + ", dest=" + dest)
 	
@@ -188,7 +190,12 @@ def hot_deploy_releae(project_name):
 	for idx, root_war_file in enumerate(root_files):
 		if root_war_file != rename_war_file_name:
 			print(root_war_file)                
-			os.remove(webApps + "/" + root_war_file)
+			os.remove(webappspath + "/" + root_war_file) # war 파일 삭제
+			shutil.rmtree(webappspath + "/" + root_war_file.split(".")[0], True) # war 파일이 deploy되면서 풀린 folder 삭제
+			
+	# ROOT 디렉토리 존재 시 삭제
+	if os.path.isdir(webappspath + "/ROOT"):
+		shutil.rmtree(webappspath + "/ROOT")
 
 # ===========================================
 # execute_main
@@ -215,16 +222,12 @@ def execute_main(param):
 
 	project_names = param_map.get("project_name").split(",")
 	for project_name in project_names:
-
 		# webappspath 디렉토리
-		if profile_active == "op":
-			webappspath = gportal_path + "/" + project_name + "/webapps/ROOT"
-		elif profile_active is not "op":
-			webappspath = gportal_path + "/" + project_name + "/tomcat/webapps/ROOT"
+		webappspath = gportal_path + "/" + project_name + "/tomcat/webapps"		
 
 		# 배포 (일반디플로이, 핫디플로이)
 		if hot_deploy == "Y":
-			hot_deploy_releae(project_name)
+			hot_deploy_releae(webappspath, project_name)
 		else:
 			release(webappspath, project_name)
 

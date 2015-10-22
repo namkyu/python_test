@@ -18,6 +18,11 @@ class ReleaseTest(unittest.TestCase):
         param = "mode=release#profile_active=op#project_name=project,project2#gportal_path=E:/test/python/release/gportal#java_home=C:/jdk1.7.0_25#war_home=E:/test/python/release/%s"
         execute_main(param)
         
+    @unittest.skip("skip")
+    def test_other(self):
+        param = "ROOT#5.war"
+        print(param.split(".")[0])
+        
     def test_directory(self):
         root_files = []
         for root, dirs, files in os.walk("E:/test/war/", topdown=False):
@@ -59,4 +64,10 @@ class ReleaseTest(unittest.TestCase):
             if file != rename_war_name:                
                 print(file)
                 os.remove("E:/test/war/" + file)
-                
+                shutil.rmtree("E:/test/war/" + file.split(".")[0]) # war 파일이 deploy되면서 풀린 folder 삭제
+        
+        if os.path.isdir("E:/test/war/ROOT"):
+            shutil.rmtree("E:/test/war/ROOT")
+            
+            
+        os.makedirs("E:/test/war/webapps/ROOT")

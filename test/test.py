@@ -49,3 +49,8 @@ shutil.copytree("E:/test/python/src_dir", "E:/test/python/src_dir2")
 
 # 디렉토리 패스 구분자는 / 로 들어가야 한다. \ 는 안 됨
 shutil.copy2("D:/goldensection.gso", "E:/test/python/backup_dir")
+
+
+
+# 디렉토리 삭제
+shutil.rmtree("E:/test/war/test_dir", True)
