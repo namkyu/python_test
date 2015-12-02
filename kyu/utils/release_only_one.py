@@ -38,13 +38,13 @@ if __name__ == "__main__":
         print("========================================================================")
         print("배포 대상 파일")
         print("========================================================================")
-        for root, dirs, files in os.walk("/home/fxdev/GPORTAL/%s/tomcat/webapps/ROOT" % project, topdown=False):
-                for name in files:
-                        # 검색하려고 하는 file의 full path 추출
-                        if name == file_name:
-                                search_file_full_path = os.path.join(root, name)
-                                release_files.append(search_file_full_path)
-                                print("배포 대상 파일 ==> " + search_file_full_path)
+        for root, dirs, files in os.walk("/home/fxdev/GPORTAL/%s/tomcat/webapps" % project, topdown=False):
+            for name in files:                
+                # 검색하려고 하는 file의 full path 추출
+                if name == file_name:
+                    search_file_full_path = os.path.join(root, name)
+                    release_files.append(search_file_full_path)
+                    print("배포 대상 파일 ==> " + search_file_full_path)
         print("\n")
 
         release_files_size = len(release_files)
@@ -72,8 +72,15 @@ if __name__ == "__main__":
         # 서버 리스트 정보 추출
         server_list_info = open("/home/fxdev/shell/serverlist/%s" % server_list_file)
         for server_host in server_list_info:
+                # 목적지 파일 패스 설정
+                resultArr = release_file_name.split("##")
+                webRoot = resultArr[0]
+                filePath = resultArr[1]
+                destinationSourcePath = filePath[filePath.find("/"):]
+                destinationSourceFullPath = webRoot + destinationSourcePath
+            
                 # scp를 이용한 파일 cp
-                cmd = "scp %s %s:%s" % (release_file_name, server_host.strip(), release_file_name)
+                cmd = "scp %s %s:%s" % (release_file_name, server_host.strip(), destinationSourceFullPath)
                 print(cmd)
                 subprocess.call(cmd, shell=True)
 

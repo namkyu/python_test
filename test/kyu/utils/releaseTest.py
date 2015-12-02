@@ -52,7 +52,7 @@ class ReleaseTest(unittest.TestCase):
             print("## 신규 버전")
             print(new_version)
         
-        original_war_name = "NShop-Front.war"
+        original_war_name = "TestApp-Front.war"
         rename_war_name = "ROOT##%d.war" % new_version
         print(rename_war_name)
         
