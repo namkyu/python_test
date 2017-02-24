@@ -72,17 +72,20 @@ if __name__ == "__main__":
         # 서버 리스트 정보 추출
         server_list_info = open("/home/fxdev/shell/serverlist/%s" % server_list_file)
         for server_host in server_list_info:
-                # 목적지 파일 패스 설정
+            
+            if release_file_name.find("##") > -1:
                 resultArr = release_file_name.split("##")
                 webRoot = resultArr[0]
                 filePath = resultArr[1]
                 destinationSourcePath = filePath[filePath.find("/"):]
                 destinationSourceFullPath = webRoot + destinationSourcePath
+            else:
+                destinationSourceFullPath = release_file_name
             
-                # scp를 이용한 파일 cp
-                cmd = "scp %s %s:%s" % (release_file_name, server_host.strip(), destinationSourceFullPath)
-                print(cmd)
-                subprocess.call(cmd, shell=True)
+            # scp를 이용한 파일 cp
+            cmd = "scp %s %s:%s" % (release_file_name, server_host.strip(), destinationSourceFullPath)
+            print(cmd)
+            subprocess.call(cmd, shell=True)
 
         # close file
         server_list_info.close()

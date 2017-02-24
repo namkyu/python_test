@@ -29,7 +29,6 @@ for item in tar:
 print("Done")
 
 
-
 # if 테스트
 profile_active = "rc"
 if profile_active == "op":
@@ -54,3 +53,6 @@ shutil.copy2("D:/goldensection.gso", "E:/test/python/backup_dir")
 
 # 디렉토리 삭제
 shutil.rmtree("E:/test/war/test_dir", True)
+
+
+print(os.pathsep)
